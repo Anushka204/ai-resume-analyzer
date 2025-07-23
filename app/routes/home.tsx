@@ -1,10 +1,11 @@
 import Navbar from "~/components/Navbar";
 import type { Route } from "./+types/home";
 import ResumeCard from "~/components/ResumeCard";
-import { resumes } from "constants";
+
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { usePuterStore } from "~/lib/puter";
+import { resumes } from "constants";
 
 
 export function meta({}: Route.MetaArgs) {
@@ -32,14 +33,14 @@ if(!auth.isAuthenticated) navigate('/auth?next=/');
         <h2>Review your submissions and check AI-powered feedback.</h2>
         </div>
     
-{resumes.length>0 && (
- <div className="resumes-section">
-
-{resumes.map((resume) => (
-<ResumeCard key={resume.id} resume={resume}/>
-))}
-</div>
+{Array.isArray(resumes) && resumes.length > 0 && (
+  <div className="resumes-section">
+    {resumes.map((resume) => (
+      <ResumeCard key={resume.id} resume={resume} />
+    ))}
+  </div>
 )}
+
 </section>
   </main>
 }
